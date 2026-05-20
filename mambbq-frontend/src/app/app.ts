@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   error: string | null = null;
 
   // Địa chỉ API của Backend
-  private apiUrl = 'http://localhost:5000/api/menu';
+  private apiUrl = 'https://mambbq-menu.onrender.com/api/menu';
 
   constructor(private http: HttpClient) {}
 
