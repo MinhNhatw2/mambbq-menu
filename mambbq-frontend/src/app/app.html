@@ -23,7 +23,7 @@
   </header>
 
   <main class="menu-content">
-    <div *ngFor="let category of menuData.menu | keyvalue" class="menu-category-block">
+    <div *ngFor="let category of menuData.menu | keyvalue: sortCategory" class="menu-category-block">
       
       <div class="category-title-wrap">
         <h3 class="category-title">{{ category.key }}</h3>

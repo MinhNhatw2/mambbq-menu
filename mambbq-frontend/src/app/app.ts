@@ -36,4 +36,11 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  // Hàm sắp xếp: Đẩy nhóm Nướng lên vị trí số 1
+  sortCategory = (a: any, b: any): number => {
+    if (a.key === 'NƯỚNG NGON CHUẨN VỊ') return -1;
+    if (b.key === 'NƯỚNG NGON CHUẨN VỊ') return 1;
+    return 0; // Giữ nguyên thứ tự các nhóm còn lại
+  }
 }
