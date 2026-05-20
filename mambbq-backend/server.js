@@ -1,61 +1,81 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
 require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
-app.use(cors());
+const PORT = process.env.PORT || 5000;
+
+// ==========================================
+// 1. CẤU HÌNH CORS (MỞ CỬA CHO VERCEL VÀO)
+// ==========================================
+app.use(cors({
+    origin: '*' // Dấu * nghĩa là cho phép mọi tên miền đều lấy được thực đơn
+}));
 app.use(express.json());
 
-// 1. KẾT NỐI MONGODB ATLAS
+// ==========================================
+// 2. KẾT NỐI CƠ SỞ DỮ LIỆU MONGODB
+// ==========================================
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ Đã kết nối thành công với MongoDB Atlas (Cloud)!'))
-  .catch(err => console.error('❌ Lỗi kết nối Database:', err));
+  .then(() => console.log('✅ Đã kết nối thành công với kho nguyên liệu MongoDB!'))
+  .catch(err => console.error('❌ Lỗi kết nối MongoDB:', err));
 
-// 2. ĐỊNH NGHĨA CẤU TRÚC MENU
+// ==========================================
+// 3. ĐỊNH NGHĨA KHUNG DỮ LIỆU MÓN ĂN
+// ==========================================
 const menuItemSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
-  unit: { type: String, default: 'phần' },
-  category: { type: String, required: true },
+  name: String,
+  price: Number,
+  unit: String,
+  category: String,
   tags: [String],
   options: [String],
-  imageUrl: { type: String }
+  imageUrl: String
 });
 const MenuItem = mongoose.model('MenuItem', menuItemSchema, 'menu_items');
 
-// 3. API LẤY DANH SÁCH MENU GOM NHÓM THEO DANH MỤC
+// ==========================================
+// 4. API LẤY THỰC ĐƠN CHO KHÁCH QUÉT QR
+// ==========================================
 app.get('/api/menu', async (req, res) => {
   try {
-    const items = await MenuItem.find();
-    
-    // Gom nhóm dữ liệu theo category
-    const groupedMenu = items.reduce((acc, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = [];
-      }
-      acc[item.category].push(item);
-      return acc;
-    }, {});
+    // Thông tin cố định của quán Mầm BBQ
+    const restaurantInfo = {
+      name: "MẦM BBQ",
+      slogan: "NƯỚNG NGON CHUẨN VỊ",
+      address: "39 Nguyễn Du, Ấp 3, Tân Phú, Đồng Nai",
+      phone: "0983691688",
+      logoUrl: "images/image_ca02cc.png" 
+    };
 
-    // Trả về dữ liệu cho Frontend
-    res.json({
-      restaurantInfo: {
-        name: "MẦM BBQ",
-        slogan: "NƯỚNG NGON CHUẨN VỊ",
-        address: "39 Nguyễn Du, Ấp 3, Tân Phú, Đồng Nai",
-        phone: "0983691688",
-        logoUrl: "images/logo.jpg" // Đã trỏ đúng vào thư mục images của bạn
-      },
-      menu: groupedMenu
+    // Lấy toàn bộ món ăn từ Database
+    const items = await MenuItem.find({});
+
+    // Thuật toán chia món ăn vào từng nhóm (Category)
+    const menuByCategory = {};
+    items.forEach(item => {
+      if (!menuByCategory[item.category]) {
+        menuByCategory[item.category] = [];
+      }
+      menuByCategory[item.category].push(item);
     });
+
+    // Trả cục dữ liệu hoàn chỉnh về cho điện thoại
+    res.json({
+      restaurantInfo: restaurantInfo,
+      menu: menuByCategory
+    });
+
   } catch (error) {
-    res.status(500).json({ message: "Lỗi Server không lấy được dữ liệu" });
+    console.error("Lỗi khi dọn món:", error);
+    res.status(500).json({ message: "Lỗi máy chủ nội bộ" });
   }
 });
 
-// 4. CHẠY SERVER NHÀ BẾP
-const PORT = process.env.PORT || 5000;
+// ==========================================
+// 5. KHỞI ĐỘNG NHÀ BẾP
+// ==========================================
 app.listen(PORT, () => {
-    console.log(`🚀 Server đang chạy mượt mà tại cổng: ${PORT}`);
+  console.log(`🚀 Nhà bếp đang rực lửa tại cổng ${PORT}`);
 });
