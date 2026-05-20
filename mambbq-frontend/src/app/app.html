@@ -1,0 +1,65 @@
+<div *ngIf="loading" class="loading-screen">
+  <div class="spinner"></div>
+  <p>Đang chuẩn bị thực đơn thượng hạng...</p>
+</div>
+
+<div *ngIf="error" class="error-screen">
+  <p>⚠️ {{ error }}</p>
+  <button (click)="fetchMenu()">Thử kết nối lại</button>
+</div>
+
+<div *ngIf="!loading && !error && menuData" class="menu-luxury-wrapper">
+  
+  <header class="luxury-header">
+    <div class="logo-container">
+      <img [src]="menuData.restaurantInfo.logoUrl" alt="Mầm BBQ Logo" class="brand-logo">
+    </div>
+    <h1 class="brand-title">{{ menuData.restaurantInfo.name }}</h1>
+    <div class="brand-tagline">
+      <span></span> {{ menuData.restaurantInfo.slogan }} <span></span>
+    </div>
+    <p class="brand-info">📍 {{ menuData.restaurantInfo.address }}</p>
+    <p class="brand-info">📞 {{ menuData.restaurantInfo.phone }}</p>
+  </header>
+
+  <main class="menu-content">
+    <div *ngFor="let category of menuData.menu | keyvalue" class="menu-category-block">
+      
+      <div class="category-title-wrap">
+        <h3 class="category-title">{{ category.key }}</h3>
+        <div class="gold-line"></div>
+      </div>
+
+      <div class="menu-items-grid">
+        <div *ngFor="let item of $any(category.value)" class="luxury-menu-item">
+          
+          <div class="item-main-info">
+            <h4 class="item-name">
+              {{ item.name }}
+              <span *ngIf="item.tags?.includes('Hot')" class="tag tag-hot">HOT</span>
+              <span *ngIf="item.tags?.includes('Món bán chạy')" class="tag tag-best">BEST</span>
+            </h4>
+            <p *ngIf="item.options && item.options.length > 0" class="item-options">
+              Tùy chọn: {{ item.options.join(' / ') }}
+            </p>
+          </div>
+
+          <div class="item-dots"></div>
+
+          <div class="item-price-zone">
+            <span class="item-price">{{ item.price / 1000 }}k</span>
+            <span class="item-unit" *ngIf="item.unit !== 'phần'">/ {{ item.unit }}</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="luxury-footer">
+    <p>© MẦM BBQ - Hân Hạnh Được Phục Vụ Quý Khách</p>
+    <small>Chúc quý khách có một trải nghiệm ẩm thực trọn vẹn</small>
+  </footer>
+
+</div>

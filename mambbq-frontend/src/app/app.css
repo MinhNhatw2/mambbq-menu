@@ -1,0 +1,200 @@
+/* CONFIG TOÀN TRANG MENU CHUẨN ĐIỆN THOẠI ĐEN VÀNG KIM */
+.menu-luxury-wrapper {
+    background-color: #070707;
+    color: #e5e5e5;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    max-width: 100vw;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+}
+
+/* 1. STYLING CHO HEADER LOGO */
+.luxury-header {
+    text-align: center;
+    padding: 40px 20px 30px 20px;
+    background: linear-gradient(to bottom, #111, #070707);
+}
+.logo-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    border: 2px solid #d4af37; /* Viền vàng gold quý phái */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+.brand-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.brand-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #d4af37;
+    margin: 0 0 8px 0;
+    letter-spacing: 2px;
+}
+.brand-tagline {
+    font-size: 14px;
+    color: #d4af37;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.brand-tagline span {
+    width: 30px;
+    height: 1px;
+    background-color: #d4af37;
+}
+.brand-info {
+    font-size: 16px;
+    color: #8c8c8c;
+    margin: 6px 0;
+}
+
+/* 2. TIÊU ĐỀ DANH MỤC */
+.menu-category-block {
+    margin-bottom: 40px;
+    padding: 0 24px;
+}
+.category-title-wrap {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.category-title {
+    font-size: 24px;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+.gold-line {
+    width: 60px;
+    height: 2px;
+    background-color: #d4af37;
+    margin: 0 auto;
+}
+.menu-items-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 3. THIẾT KẾ GIÁ VÀ TÊN LUÔN CÙNG HÀNG TUYỆT ĐỐI */
+.luxury-menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline; /* Giúp chân chữ của tên món và giá tiền luôn thẳng hàng hàng ngang */
+    width: 100%;
+}
+
+.item-main-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%; /* Khóa khung chữ tránh đè vào giá */
+}
+.item-name {
+    font-size: 19px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ĐƯỜNG KẺ CHẤM NỐI TỰ ĐỘNG CO GIÃN GIỮA HAI BÊN */
+.item-dots {
+    flex: 1;
+    border-bottom: 1px dotted #262626; /* Chấm mờ sang trọng không bị chói */
+    margin: 0 12px;
+    position: relative;
+    top: -4px;
+}
+
+/* TAG TRẠNG THÁI MÓN ĂN */
+.tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+.tag-hot { background-color: #ff3b30; color: #fff; }
+.tag-best { background-color: #ffcc00; color: #000; }
+
+.item-options {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    margin: 4px 0 0 0;
+}
+
+/* CỘT GIÁ TIỀN CỐ ĐỊNH BÊN PHẢI */
+.item-price-zone {
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0; /* Ép giá tiền không bao giờ bị nhảy dòng xuống dưới */
+}
+.item-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #d4af37; /* Giá mạ vàng sang trọng */
+}
+.item-unit {
+    font-size: 13px;
+    color: #555;
+    margin-left: 2px;
+}
+
+/* HIỆU ỨNG CHỜ & LỖI */
+.loading-screen, .error-screen {
+    background-color: #070707;
+    color: #aaa;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #222;
+    border-top: 3px solid #d4af37;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.error-screen button {
+    background-color: #d4af37;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    color: #000;
+    font-weight: 600;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.luxury-footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 25px;
+    border-top: 1px solid #1a1a1a;
+    font-size: 14px;
+    color: #444;
+}
+.luxury-footer small { color: #222; display: block; margin-top: 4px; }
