@@ -46,7 +46,7 @@ app.get('/api/menu', async (req, res) => {
       slogan: "NƯỚNG NGON CHUẨN VỊ",
       address: "39 Nguyễn Du, Ấp 3, Tân Phú, Đồng Nai",
       phone: "0983691688",
-      logoUrl: "images/image_ca02cc.png" 
+      logoUrl: "https://i.ibb.co/FLMkYp4b/logo.jpg"
     };
 
     // Lấy toàn bộ món ăn từ Database
